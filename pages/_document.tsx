@@ -1,6 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { renderToString } from "react-dom/server";
-import { extractCritical } from "emotion-server";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
