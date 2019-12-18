@@ -42,7 +42,9 @@ workbox.precaching.precacheAndRoute([
   __app_shell_url,
 
   ...__precacheManifest
-    .filter(x => !isAmpPage(x.url))
+    .filter(
+      x => !isAmpPage({ pathname: "/" + (x.url.split("/pages/")[1] || "") })
+    )
     .map(x => ({
       ...x,
       url: x.url.replace(/^static\//, "_next/static/")
