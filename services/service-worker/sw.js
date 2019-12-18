@@ -51,9 +51,19 @@ workbox.precaching.precacheAndRoute([
 
   ...__precacheManifest
     .filter(x => {
-      const m = x.url.match(/pages(\/.*)(\/?index.js)?$/);
+      const m = x.url.split("?")[0].match(/pages(\/.*)/);
 
-      return !(m && isAmpPage(m[1]));
+      const pathname =
+        m &&
+        m
+          .replace(/index\.js/, "")
+          .split("/")
+          .filter(Boolean)
+          .join("/");
+
+      console.log(pathname, isAmpPage(pathname));
+
+      return !(pathname && isAmpPage(pathname));
     })
     .map(x => ({
       ...x,
