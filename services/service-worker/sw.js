@@ -7,7 +7,8 @@ self.__precacheManifest = self.__precacheManifest || [];
 const isAmpPage = ({ pathname }) => !["/search"].includes(pathname);
 
 self.__app_shell_url =
-  url + "?revision=" + __precacheManifest.map(x => x.revision).join("");
+  "/pwa-shell?__WB_REVISION__=" +
+  __precacheManifest.map(x => x.revision).join("");
 
 /**
  * upon navigation, serve the pwa shell instead
