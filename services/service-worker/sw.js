@@ -55,7 +55,7 @@ workbox.precaching.precacheAndRoute([
 
       const pathname =
         m &&
-        m
+        m[1]
           .replace(/index\.js/, "")
           .split("/")
           .filter(Boolean)
