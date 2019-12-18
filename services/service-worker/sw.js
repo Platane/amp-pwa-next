@@ -4,7 +4,7 @@
 
 self.__precacheManifest = self.__precacheManifest || [];
 
-const isAmpPage = ({ pathname }) =>
+const isAmpPage = pathname =>
   [
     //
     /^\/$/,
@@ -20,7 +20,8 @@ self.__app_shell_url =
  * upon navigation, serve the pwa shell instead
  */
 workbox.routing.registerRoute(
-  ({ url, event }) => event.request.mode === "navigate" && isAmpPage(url),
+  ({ url, event }) =>
+    event.request.mode === "navigate" && isAmpPage(url.pathname),
 
   async ({ url, event, params }) => {
     console.log("navigation, push shell instead", url.pathname);
@@ -49,9 +50,9 @@ workbox.precaching.precacheAndRoute([
 
   ...__precacheManifest
     .filter(x => {
-      const pathname = (x.url.match(/pages\/(.*)/) || [])[1];
+      const m = x.url.match(/pages\/(.*)/);
 
-      return !isAmpPage({ pathname });
+      return !(m && isAmpPage(m[1]));
     })
     .map(x => ({
       ...x,
