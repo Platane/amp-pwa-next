@@ -17,6 +17,7 @@ const hash = __precacheManifest.reduce((h, { url }) => {
 }, null);
 
 const appShellUrl = "/pwa-shell?__WB_REVISION__=" + hash;
+const appRootUrl = "/?__WB_REVISION__=" + hash;
 
 /**
  * upon navigation, serve the pwa shell instead
@@ -55,6 +56,8 @@ const removeTrailingSlash = s =>
  * pre cache assets
  */
 workbox.precaching.precacheAndRoute([
+  appRootUrl,
+
   appShellUrl,
 
   ...__precacheManifest
