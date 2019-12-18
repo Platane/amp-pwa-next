@@ -41,7 +41,7 @@ workbox.routing.registerRoute(
 workbox.precaching.precacheAndRoute([
   __app_shell_url,
 
-  __precacheManifest
+  ...__precacheManifest
     .filter(x => !isAmpPage(x.url))
     .map(x => ({
       ...x,
