@@ -26,6 +26,22 @@ const Page = ({ movie }: Props) => {
       <section>
         <h1>{movie.title}</h1>
 
+        <div>
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={i}
+              style={{
+                color: i <= +movie.vote_average ? "orange" : "grey"
+              }}
+            >
+              ★
+            </span>
+          ))}
+          <span>{`${movie.vote_average} of ${movie.vote_count}`}</span>
+        </div>
+
+        <a href={`https://www.imdb.com/title/${movie.imdb_id}`}>imdb</a>
+
         <p>{movie.overview}</p>
       </section>
 
