@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "name": "amp-pwa-next",
+  "regions": ["dub1"],
+
+  "env": {
+    "OMDB_API_KEY": "@omdb_api_key",
+    "API_ENDPOINT": "@api_endpoint"
+  },
+
+  "routes": [
+    {
+      "src": "(/.*)",
+      "continue": true,
+      "headers": {
+        "__Cache-Control": "s-maxage=7776000",
+        "Cache-Control": "max-age=7776000, public"
+      }
+    },
+
+    {
+      "src": "^/sw.js$",
+      "dest": "/_next/static/sw.js",
+      "headers": {
+        "Cache-Control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    },
+    {
+      "src": "^/static/workbox/(?<path>.*)",
+      "dest": "/_next/static/workbox/$path",
+      "headers": {
+        "Cache-Control": "public, max-age=7776000, immutable"
+      }
+    }
+  ],
+
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@now/next"
+    }
+  ]
+}
