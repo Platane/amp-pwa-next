@@ -12,9 +12,11 @@ const isAmpPage = pathname =>
     /^\/movie\/.*$/
   ].some(re => pathname.match(re));
 
-self.__app_shell_url =
-  "/pwa-shell?__WB_REVISION__=" +
-  __precacheManifest.map(x => x.revision).join("");
+const hash = (__precacheManifest.find(x =>
+  x.url.match(/static\/([^/]+)\/pages/)
+) || [])[1];
+
+const appShellUrl = "/pwa-shell?__WB_REVISION__=" + hash;
 
 /**
  * upon navigation, serve the pwa shell instead
@@ -28,14 +30,14 @@ workbox.routing.registerRoute(
 
     const cache = await caches.open(workbox.core.cacheNames.precache);
     const response = await cache.match(
-      workbox.precaching.getCacheKeyForURL(__app_shell_url)
+      workbox.precaching.getCacheKeyForURL(appShellUrl)
     );
 
     if (response) return response;
     else {
-      const res = await fetch(__app_shell_url);
+      const res = await fetch(appShellUrl);
 
-      cache.put(__app_shell_url, res.clone());
+      cache.put(appShellUrl, res.clone());
 
       return res;
     }
@@ -46,6 +48,21 @@ workbox.routing.registerRoute(
  * pre cache assets
  */
 workbox.precaching.precacheAndRoute([
+  __app_shell_url,
+
+  ...__precacheManifest
+    .filter(x => {
+      const m = x.url.match(/pages(\/.*)/);
+
+      return !(m && isAmpPage(m[1]));
+    })
+    .map(x => ({
+      ...x,
+      url: x.url.replace(/^static\//, "_next/static/")
+    }))
+]);
+
+console.log([
   __app_shell_url,
 
   ...__precacheManifest
