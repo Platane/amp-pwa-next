@@ -4,7 +4,13 @@
 
 self.__precacheManifest = self.__precacheManifest || [];
 
-const isAmpPage = ({ pathname }) => !["/search"].includes(pathname);
+const isAmpPage = ({ pathname }) =>
+  [
+    //
+    /^\/$/,
+    /^\/movie$/,
+    /^\/movie\/.*$/
+  ].some(re => pathname.match(re));
 
 self.__app_shell_url =
   "/pwa-shell?__WB_REVISION__=" +
@@ -42,9 +48,11 @@ workbox.precaching.precacheAndRoute([
   __app_shell_url,
 
   ...__precacheManifest
-    .filter(
-      x => !isAmpPage({ pathname: "/" + (x.url.split("/pages/")[1] || "") })
-    )
+    .filter(x => {
+      const pathname = (x.url.match(/pages\/(.*)/) || [])[1];
+
+      return !isAmpPage({ pathname });
+    })
     .map(x => ({
       ...x,
       url: x.url.replace(/^static\//, "_next/static/")
