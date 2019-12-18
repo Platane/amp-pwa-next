@@ -61,7 +61,7 @@ workbox.precaching.precacheAndRoute([
           .filter(Boolean)
           .join("/");
 
-      console.log(pathname, isAmpPage(pathname));
+      console.log(pathname, pathname && isAmpPage(pathname));
 
       return !(pathname && isAmpPage(pathname));
     })
