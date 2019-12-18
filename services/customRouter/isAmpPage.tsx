@@ -1,4 +1,5 @@
-export const isAmpPage = pathname =>
+export const isAmpPage = (pathname: string | null) =>
+  pathname &&
   [
     //
     /^\/$/,

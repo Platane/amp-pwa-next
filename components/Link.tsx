@@ -65,6 +65,7 @@ export const Link = ({ href, as = href, children, ...props }) => {
 
   if (props.passHref || (child.type === "a" && !("href" in child.props))) {
     props.href = as || href;
+    props["data-as"] = as;
   }
 
   return React.cloneElement(child, props);

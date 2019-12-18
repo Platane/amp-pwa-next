@@ -53,7 +53,7 @@ export const CustomRouterProvider = ({ initialUrl = "/", children }) => {
     as: string,
     options
   ) => {
-    const nextIsAmp = isAmpPage(parse(as));
+    const nextIsAmp = isAmpPage(parse(as).pathname);
     const currentIsShell = nextRouter.pathname === "/pwa-shell";
 
     if (nextIsAmp && currentIsShell) {
