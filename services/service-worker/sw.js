@@ -51,25 +51,26 @@ workbox.precaching.precacheAndRoute([
 
   ...__precacheManifest
     .filter(x => {
-      const m = x.url.split("?")[0].match(/pages(\/.*)/);
+      const m = x.url.split("?")[0].match(/pages(\/.*)\.js/);
 
-      const pathname =
-        m &&
-        m[1]
-          .replace(/index\.js/, "")
-          .split("/")
-          .filter(Boolean)
-          .join("/");
+      if (!m) return true;
 
-      console.log(pathname, pathname && isAmpPage(pathname));
+      const pathname = removeTrailingSlash(m[1].replace(/index/, ""));
 
-      return !(pathname && isAmpPage(pathname));
+      return !isAmpPage(pathname);
     })
     .map(x => ({
       ...x,
       url: x.url.replace(/^static\//, "_next/static/")
     }))
 ]);
+
+const removeTrailingSlash = s =>
+  "/" +
+  s
+    .split("/")
+    .filter(Boolean)
+    .join("/");
 
 /**
  * cache pages
