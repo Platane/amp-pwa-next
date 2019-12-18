@@ -8,12 +8,11 @@ const isAmpPage = pathname =>
   [
     //
     /^\/$/,
-    /^\/movie$/,
     /^\/movie\/[^/]+$/
   ].some(re => pathname.match(re));
 
 const hash = (__precacheManifest.find(x =>
-  x.url.match(/static\/([^/]+)\/pages/)
+  x.url.match(/\/static\/([^\/]+)\/pages\//)
 ) || [])[1];
 
 const appShellUrl = "/pwa-shell?__WB_REVISION__=" + hash;
