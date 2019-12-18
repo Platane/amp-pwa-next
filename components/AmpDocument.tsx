@@ -31,7 +31,7 @@ export const AmpDocument = ({ src, onNavigate, ...props }) => {
         container.appendChild(domDoc);
 
         // prune redundant ui elements
-        doc.querySelector(".mainlayout-topbar").remove();
+        for (const el of doc.querySelectorAll(".layout-static")) el.remove();
 
         // attach the new doc
         ampedDoc.current = amp.attachShadowDoc(domDoc, doc, url);

@@ -6,16 +6,16 @@ import { Link } from "../Link";
 
 export const MainLayout = ({ children }) => (
   <>
-    <div className="mainlayout-topbar">
+    <header className="layout-static">
       <span> </span>
       <Link href="/">
         <a>home</a>
       </Link>
-    </div>
+    </header>
 
     {children}
 
-    <footer>
+    <footer className="layout-static">
       <p>
         data from <a href="https://www.themoviedb.org/">themoviedb.org</a>
       </p>
