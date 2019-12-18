@@ -3,7 +3,7 @@ import { AmpImg } from "react-amphtml";
 import { getMovie } from "../../services/api/getMovie";
 import { Movie } from "../../services/tmdb/type";
 import { MovieList } from "../../components/MovieList";
-import { getImageUrl, sizes } from "../../services/tmdb/image";
+import { getSrcSet } from "../../services/tmdb/image";
 
 export const config = { amp: true };
 
@@ -13,14 +13,12 @@ const Page = ({ movie }: Props) => {
   return (
     <>
       <AmpImg
+        alt="movie poster"
         specName="default"
         width="500"
         height="750"
-        srcset={sizes
-          .map(
-            width => getImageUrl(movie.poster_path, { width }) + ` ${width}w`
-          )
-          .join(",")}
+        sizes="(min-width: 500px) 500px, 100vw"
+        srcset={getSrcSet(movie.poster_path)}
       />
 
       <section>
