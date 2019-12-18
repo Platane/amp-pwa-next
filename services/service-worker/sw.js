@@ -43,6 +43,13 @@ workbox.routing.registerRoute(
   }
 );
 
+const removeTrailingSlash = s =>
+  "/" +
+  s
+    .split("/")
+    .filter(Boolean)
+    .join("/");
+
 /**
  * pre cache assets
  */
@@ -64,13 +71,6 @@ workbox.precaching.precacheAndRoute([
       url: x.url.replace(/^static\//, "_next/static/")
     }))
 ]);
-
-const removeTrailingSlash = s =>
-  "/" +
-  s
-    .split("/")
-    .filter(Boolean)
-    .join("/");
 
 /**
  * cache pages
