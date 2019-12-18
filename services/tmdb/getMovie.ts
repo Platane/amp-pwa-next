@@ -5,7 +5,7 @@ import { Movie } from "./type";
 
 export const getMovie = async (id: string): Promise<Movie> => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}` +
+    `https://api.themoviedb.org/3/movie/${id}?` +
       querystring.stringify({
         api_key: process.env.TMDB_API_KEY || "b84d2bc9f75687fea906921b7579eb39"
       })

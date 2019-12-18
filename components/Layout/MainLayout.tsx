@@ -7,9 +7,6 @@ import { AmpTester } from "../../components/AmpTester";
 export const MainLayout = ({ children }) => (
   <>
     <TopBar className="mainlayout-topbar">
-      <Link href="/content">
-        <a>/content</a>
-      </Link>
       <span> </span>
       <Link href="/">
         <a>home</a>
@@ -20,6 +17,12 @@ export const MainLayout = ({ children }) => (
     <AmpTester />
 
     {children}
+
+    <footer>
+      <p>
+        data from <a href="https://www.themoviedb.org/">themoviedb.org</a>
+      </p>
+    </footer>
   </>
 );
 

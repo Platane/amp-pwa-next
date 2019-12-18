@@ -3,16 +3,16 @@ import Head from "next/head";
 import { renderToString } from "react-dom/server";
 import { AmpList } from "react-amphtml";
 import { MovieListItem } from "./MovieListItem";
-import { Movie } from "../services/omdb/type";
+import { Movie } from "../services/tmdb/type";
 
-export const MovieList = ({ src, ...props }) => {
+export const MovieList = ({ src, maxItems = 3, ...props }) => {
   const template = renderToString(
     <MovieListItem
       movie={
         {
-          Title: "{{Title}}",
-          Poster: "{{Poster}}",
-          imdbID: "{{imdbID}}"
+          title: "{{title}}",
+          poster_path: "{{poster_path}}",
+          id: "{{id}}"
         } as Movie
       }
     />
@@ -36,9 +36,9 @@ export const MovieList = ({ src, ...props }) => {
       <AmpList
         specName="default"
         width="auto"
-        height={3 * 80}
+        height={maxItems * 80}
         layout="fixed-height"
-        max-items={3}
+        max-items={maxItems.toString()}
         src={src}
       >
         <Template

@@ -9,9 +9,9 @@ export const getMovies = async ({
 }: {
   year?: number;
   genre?: number;
-}): Promise<Movie[]> => {
+}): Promise<{ results: Movie[] }> => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/discover/movie` +
+    `https://api.themoviedb.org/3/discover/movie?` +
       querystring.stringify({
         ...(year && { primary_release_year: year }),
         ...(genre && { with_genres: genre }),

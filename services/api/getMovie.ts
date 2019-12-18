@@ -1,4 +1,4 @@
-import { Movie } from "../omdb/type";
+import { Movie } from "../tmdb/type";
 
 (global as any).fetch = (global as any).fetch || require("node-fetch");
 
