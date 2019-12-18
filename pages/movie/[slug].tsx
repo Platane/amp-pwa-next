@@ -47,6 +47,12 @@ const Page = ({ movie }: Props) => {
           maxItems={5}
         />
       </section>
+
+      <section>
+        <h2>Most popular movies</h2>
+
+        <MovieList src={`/api/movie`} maxItems={5} />
+      </section>
     </>
   );
 };

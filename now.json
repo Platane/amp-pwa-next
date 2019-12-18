@@ -4,8 +4,9 @@
   "regions": ["dub1"],
 
   "env": {
-    "OMDB_API_KEY": "@omdb_api_key",
-    "API_ENDPOINT": "@api_endpoint"
+    "TMDB_API_KEY": "@amp_pwa_next_tmdb_api_key",
+    "OMDB_API_KEY": "@amp_pwa_next_omdb_api_key",
+    "API_ENDPOINT": "https://amp-pwa-next.platane0.now.sh"
   },
 
   "routes": [
@@ -15,6 +16,14 @@
       "headers": {
         "__Cache-Control": "s-maxage=7776000",
         "Cache-Control": "max-age=7776000, public"
+      }
+    },
+
+    {
+      "src": "^/api/movie$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "max-age=86400, public"
       }
     },
 

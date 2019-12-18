@@ -2,19 +2,16 @@ import React from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/core";
 import { Link } from "../Link";
-import { AmpTester } from "../../components/AmpTester";
+// import { AmpTester } from "../../components/AmpTester";
 
 export const MainLayout = ({ children }) => (
   <>
-    <TopBar className="mainlayout-topbar">
+    <div className="mainlayout-topbar">
       <span> </span>
       <Link href="/">
         <a>home</a>
       </Link>
-      <Spinner />
-    </TopBar>
-
-    <AmpTester />
+    </div>
 
     {children}
 

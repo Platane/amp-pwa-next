@@ -23,7 +23,6 @@ export default class Application extends App {
 
     return (
       <>
-        <NormalizeCss />
         <CustomRouterProvider>
           <MainLayout>
             <Component {...this.props.pageProps} />
@@ -33,3 +32,5 @@ export default class Application extends App {
     );
   }
 }
+
+// <NormalizeCss />

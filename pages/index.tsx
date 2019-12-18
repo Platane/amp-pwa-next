@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "../components/Link";
 
-export const config = { amp: !true };
+export const config = { amp: true };
 
 const Page = props => {
   return (

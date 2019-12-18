@@ -9,11 +9,11 @@ export const MovieList = ({ src, maxItems = 3, ...props }) => {
   const template = renderToString(
     <MovieListItem
       movie={
-        {
+        ({
           title: "{{title}}",
           poster_path: "{{poster_path}}",
           id: "{{id}}"
-        } as Movie
+        } as any) as Movie
       }
     />
   );
