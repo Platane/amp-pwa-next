@@ -6,23 +6,13 @@ import { NormalizeCss } from "../components/NormalizeCss";
 import { CustomRouterProvider } from "../services/customRouter";
 import { ServiceWorkerInstaller } from "../services/service-worker/ServiceWorkerInstaller";
 
-//<ServiceWorkerInstaller />
-
 export default class Application extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
   render() {
     const { Component } = this.props;
 
     return (
       <>
+        <ServiceWorkerInstaller />
         <CustomRouterProvider>
           <MainLayout>
             <Component {...this.props.pageProps} />
