@@ -9,7 +9,7 @@ const isAmpPage = pathname =>
     //
     /^\/$/,
     /^\/movie$/,
-    /^\/movie\/.*$/
+    /^\/movie\/[^/]+$/
   ].some(re => pathname.match(re));
 
 const hash = (__precacheManifest.find(x =>
@@ -48,26 +48,11 @@ workbox.routing.registerRoute(
  * pre cache assets
  */
 workbox.precaching.precacheAndRoute([
-  __app_shell_url,
+  appShellUrl,
 
   ...__precacheManifest
     .filter(x => {
       const m = x.url.match(/pages(\/.*)/);
-
-      return !(m && isAmpPage(m[1]));
-    })
-    .map(x => ({
-      ...x,
-      url: x.url.replace(/^static\//, "_next/static/")
-    }))
-]);
-
-console.log([
-  __app_shell_url,
-
-  ...__precacheManifest
-    .filter(x => {
-      const m = x.url.match(/pages\/(.*)/);
 
       return !(m && isAmpPage(m[1]));
     })
