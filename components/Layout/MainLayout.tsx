@@ -4,7 +4,10 @@ import { Link } from "../Link";
 
 export const MainLayout = ({ children }) => (
   <>
-    <header className="layout-static">
+    <header
+      className="layout-static"
+      style={{ padding: "20px 0", background: "#eee" }}
+    >
       <Link href="/">
         <a>home</a>
       </Link>

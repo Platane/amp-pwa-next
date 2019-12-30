@@ -18,16 +18,16 @@ type Props = {
 const Page = ({ genres }: Props) => {
   return (
     <>
-      <h1></h1>
+      <h1>Home page</h1>
 
       {genres.map(({ id, name, movies }) => (
         <section key={id} style={{ margin: " 20px 0" }}>
           <h2>Most popular {name} movies</h2>
 
           <div style={{ overflowX: "scroll" }}>
-            <ul style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               {movies.map(movie => (
-                <li>
+                <div key={movie.id}>
                   <Link href="/movie/[slug]" as={`/movie/${movie.id}`}>
                     <a>
                       <>
@@ -42,9 +42,9 @@ const Page = ({ genres }: Props) => {
                       </>
                     </a>
                   </Link>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
       ))}

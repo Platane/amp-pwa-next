@@ -11,10 +11,25 @@
 
   "routes": [
     {
-      "src": "(/.*)",
+      "src": "^/movie/(?<id>.*)$",
       "continue": true,
       "headers": {
-        "__Cache-Control": "s-maxage=7776000",
+        "Cache-Control": "max-age=7776000, public"
+      }
+    },
+
+    {
+      "src": "^/?$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "max-age=86400, public"
+      }
+    },
+
+    {
+      "src": "^/api/movie/(?<id>.*)$",
+      "continue": true,
+      "headers": {
         "Cache-Control": "max-age=7776000, public"
       }
     },

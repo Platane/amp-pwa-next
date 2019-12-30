@@ -14,8 +14,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@emotion/core": "10.0.22",
-    "@emotion/styled": "10.0.23",
     "history": "4.10.1",
     "next": "9.1.6",
     "node-fetch": "2.6.0",

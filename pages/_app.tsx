@@ -25,8 +25,8 @@ export default class Application extends App {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-          <style>{cssReset}</style>
         </Head>
+
         <ServiceWorkerInstaller />
         <CustomRouterProvider>
           <MainLayout>
@@ -37,13 +37,3 @@ export default class Application extends App {
     );
   }
 }
-
-const cssReset = `
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-}
-`;
