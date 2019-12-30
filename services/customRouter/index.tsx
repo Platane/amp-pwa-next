@@ -45,6 +45,8 @@ export const CustomRouterProvider = ({ initialUrl = "/", children }) => {
       );
     };
 
+    handler();
+
     return history.listen(handler);
   }, []);
 
