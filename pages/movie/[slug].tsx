@@ -21,7 +21,7 @@ const Page = ({ movie }: Props) => {
         srcset={getSrcSet(movie.poster_path)}
       />
 
-      <section>
+      <section style={{ margin: " 20px 0" }}>
         <h1>{movie.title}</h1>
 
         <div>
@@ -43,7 +43,7 @@ const Page = ({ movie }: Props) => {
         <p>{movie.overview}</p>
       </section>
 
-      <section>
+      <section style={{ margin: " 20px 0" }}>
         <h2>genres:</h2>
 
         <ul>
@@ -53,7 +53,7 @@ const Page = ({ movie }: Props) => {
         </ul>
       </section>
 
-      <section>
+      <section style={{ margin: " 20px 0" }}>
         <h2>Most popular {movie.genres[0].name} movies</h2>
 
         <MovieList
@@ -62,7 +62,7 @@ const Page = ({ movie }: Props) => {
         />
       </section>
 
-      <section>
+      <section style={{ margin: " 20px 0" }}>
         <h2>Most popular movies</h2>
 
         <MovieList src={`/api/movie`} maxItems={5} />

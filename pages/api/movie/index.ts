@@ -10,6 +10,6 @@ export default async (req, res) => {
   const { results } = await getMovies({ year, genre });
 
   res.statusCode = 200;
-  res.json({ items: results });
+  res.json({ items: results.slice(0, 5) });
   res.end();
 };
