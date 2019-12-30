@@ -12,16 +12,13 @@ export const FavButton = ({ movie }) => {
           src="https://cdn.ampproject.org/v0/amp-script-0.1.js"
         ></script>
 
-        <meta
-          name="amp-script-src"
-          content="sha384-rvNdIhlojQqex3pTuTel9aCYZXU6yE8IHl_0COq7dW7WZuW_XJMP3P1HGEy6WjaN"
-        />
+        <meta name="amp-script-src" content={codeHash} />
 
         <Script
           id="fav-button-script"
           type="text/plain"
           target="amp-script"
-          dangerouslySetInnerHTML={{ __html: 'console.log("code")' }}
+          dangerouslySetInnerHTML={{ __html: code }}
         />
       </Head>
 
@@ -77,4 +74,4 @@ const code = `
 
 `;
 
-const codeHash = "";
+const codeHash = "xxxx";
