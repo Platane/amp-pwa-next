@@ -3,5 +3,6 @@ export const isAmpPage = (pathname: string | null) =>
   [
     //
     /^\/$/,
+    /^\/about$/,
     /^\/movie\/[^/]+$/
   ].some(re => pathname.match(re));

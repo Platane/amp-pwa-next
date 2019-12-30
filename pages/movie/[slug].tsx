@@ -3,7 +3,7 @@ import { AmpImg } from "react-amphtml";
 import { getMovie } from "../../services/api/getMovie";
 import { Movie } from "../../services/tmdb/type";
 import { MovieList } from "../../components/MovieList";
-import { getSrcSet } from "../../services/tmdb/image";
+import { getSrcSet, getImageUrl } from "../../services/tmdb/image";
 
 export const config = { amp: true };
 
@@ -20,6 +20,7 @@ const Page = ({ movie }: Props) => {
         height="750"
         sizes="(min-width: 500px) 500px, 100vw"
         srcset={getSrcSet(movie.poster_path)}
+        src={getImageUrl(movie.poster_path)}
       />
 
       <section style={{ margin: " 20px 0" }}>

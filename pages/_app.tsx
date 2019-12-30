@@ -4,6 +4,7 @@ import Head from "next/head";
 import { MainLayout } from "../components/Layout/MainLayout";
 import { CustomRouterProvider } from "../services/customRouter";
 import { ServiceWorkerInstaller } from "../services/service-worker/ServiceWorkerInstaller";
+import { PageTransitionProvider } from "../services/pageTransition";
 
 export default class Application extends App {
   render() {
@@ -28,11 +29,13 @@ export default class Application extends App {
         </Head>
 
         <ServiceWorkerInstaller />
-        <CustomRouterProvider>
-          <MainLayout>
-            <Component {...this.props.pageProps} />
-          </MainLayout>
-        </CustomRouterProvider>
+        <PageTransitionProvider>
+          <CustomRouterProvider>
+            <MainLayout>
+              <Component {...this.props.pageProps} />
+            </MainLayout>
+          </CustomRouterProvider>
+        </PageTransitionProvider>
       </>
     );
   }

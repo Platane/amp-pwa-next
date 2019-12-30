@@ -8,6 +8,7 @@ const isAmpPage = pathname =>
   [
     //
     /^\/$/,
+    /^\/about$/,
     /^\/movie\/[^/]+$/
   ].some(re => pathname.match(re));
 

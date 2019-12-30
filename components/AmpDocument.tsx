@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import Head from "next/head";
 import { fetchDocument } from "../services/fetchDocument";
+import { usePageTransitionEnd } from "../services/pageTransition";
 
 export const AmpDocument = ({ src, onNavigate, ...props }) => {
   const refContainer = useRef(null as null | any);
   const ampedDoc = useRef(null as null | any);
+
+  const onPageTransitionEnd = usePageTransitionEnd();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -35,6 +38,8 @@ export const AmpDocument = ({ src, onNavigate, ...props }) => {
 
         // attach the new doc
         ampedDoc.current = amp.attachShadowDoc(domDoc, doc, url);
+
+        onPageTransitionEnd(doc);
       })
       .catch(err => {
         if (err.message === "Request aborted") return;
@@ -64,7 +69,7 @@ export const AmpDocument = ({ src, onNavigate, ...props }) => {
       <Head>
         <script async src="https://cdn.ampproject.org/shadow-v0.js" />
       </Head>
-      <div ref={refContainer} />
+      <div ref={refContainer} id="amp-document-container" />
     </>
   );
 };
@@ -97,6 +102,13 @@ const createClickHandler = onNavigate => (
       const u = url.pathname + url.search + url.hash;
 
       onNavigate(u);
+
+      window.scrollTo({
+        top: 0,
+        left: 0
+        // behavior: "smooth"
+      });
+      document.body.focus();
     }
   }
 };

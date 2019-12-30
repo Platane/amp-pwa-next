@@ -3,7 +3,7 @@ import { Link } from "../components/Link";
 import { AmpImg } from "react-amphtml";
 import { getMovies } from "../services/api/getMovies";
 import { Movie } from "../services/tmdb/type";
-import { getSrcSet } from "../services/tmdb/image";
+import { getSrcSet, getImageUrl } from "../services/tmdb/image";
 
 export const config = { amp: true };
 
@@ -39,6 +39,7 @@ const Page = ({ genres }: Props) => {
                           height="750"
                           sizes="(min-width: 500px) 200px, 160px"
                           srcset={getSrcSet(movie.poster_path)}
+                          src={getImageUrl(movie.poster_path)}
                         />
                       </>
                     </a>
