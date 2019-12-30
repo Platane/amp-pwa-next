@@ -6,6 +6,7 @@ import React, {
   useRef,
   useMemo
 } from "react";
+import { useAmp } from "next/amp";
 
 const PageTransitionContext = createContext({
   onPageTransitionEnd: (doc: any) => {}
@@ -120,9 +121,11 @@ export const PageTransitionProvider = ({ children }) => {
     return () => domAnim.cancel();
   }, [animation, floatingImageRef]);
 
+  const isAmp = useAmp();
+
   return (
     <PageTransitionContext.Provider value={{ onPageTransitionEnd }}>
-      <img ref={floatingImageRef} />
+      {!isAmp && <img ref={floatingImageRef} />}
       {children}
     </PageTransitionContext.Provider>
   );
