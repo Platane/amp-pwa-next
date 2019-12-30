@@ -26,6 +26,8 @@ export default class Application extends App {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
+
+          <link rel="preconnect" href="https://cdn.ampproject.org" />
         </Head>
 
         <ServiceWorkerInstaller />
