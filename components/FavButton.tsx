@@ -14,7 +14,7 @@ export const FavButton = ({ movie }) => {
 
         <meta
           name="amp-script-src"
-          content="sha384-YCFs8k-ouELcBTgzKzNAujZFxygwiqimSqKK7JqeKaGNflwDxaC3g2toj7s_kxWG"
+          content="sha384-rvNdIhlojQqex3pTuTel9aCYZXU6yE8IHl_0COq7dW7WZuW_XJMP3P1HGEy6WjaN"
         />
 
         <Script
