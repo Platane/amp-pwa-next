@@ -17,6 +17,12 @@ export const MainLayout = ({ children }) => (
       <Link href="/about">
         <a>about</a>
       </Link>
+
+      <span> </span>
+
+      <Link href="/user-page">
+        <a>user-page</a>
+      </Link>
     </header>
 
     {children}

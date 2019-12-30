@@ -13,6 +13,7 @@ const Page = ({ movie }: Props) => {
   return (
     <>
       <AmpImg
+        id={`movie_poster_${movie.id}`}
         alt="movie poster"
         specName="default"
         width="500"
