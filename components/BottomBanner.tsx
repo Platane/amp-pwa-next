@@ -5,11 +5,10 @@ export const BottomBanner = ({ children, ...props }) => (
     {...props}
     style={{
       position: "fixed",
-      minHeight: "40px",
       left: 0,
       right: 0,
       bottom: 0,
-      padding: "10px",
+      padding: "12px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

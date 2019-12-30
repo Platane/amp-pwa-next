@@ -104,7 +104,7 @@ export const PageTransitionProvider = ({ children }) => {
             `scale(${to.width / from.width},${to.height / from.height})`
         }
       ],
-      { duration: 260 }
+      { duration: 320, easing: "cubic-bezier(.45,1.51,.57,.98)" }
     );
 
     const onEnd = () => {

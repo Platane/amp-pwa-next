@@ -16,10 +16,10 @@ export const Page = () => {
       {pageUrl && <AmpDocument onNavigate={onNavigate} src={pageUrl} />}
 
       <BottomBanner>
-        <p>
+        <span>
           you are visiting the page <a href={pageUrl || undefined}>{pageUrl}</a>{" "}
           inside the pwa shell
-        </p>
+        </span>
       </BottomBanner>
     </>
   );

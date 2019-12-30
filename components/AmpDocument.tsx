@@ -39,6 +39,12 @@ export const AmpDocument = ({ src, onNavigate, ...props }) => {
         // attach the new doc
         ampedDoc.current = amp.attachShadowDoc(domDoc, doc, url);
 
+        window.scrollTo({
+          top: 0,
+          left: 0
+          // behavior: "smooth"
+        });
+
         onPageTransitionEnd(doc);
       })
       .catch(err => {
@@ -103,11 +109,6 @@ const createClickHandler = onNavigate => (
 
       onNavigate(u);
 
-      window.scrollTo({
-        top: 0,
-        left: 0
-        // behavior: "smooth"
-      });
       document.body.focus();
     }
   }
