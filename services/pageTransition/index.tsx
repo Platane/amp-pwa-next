@@ -32,7 +32,7 @@ export const PageTransitionProvider = ({ children }) => {
         .filter(Boolean) as ShadowRoot[];
 
       const el = [document, ...shadowDoc].reduce(
-        (el, doc) => el || doc.getElementById(id),
+        (el, doc) => el || doc.querySelector("[data-image-link-id]"),
         null as any
       );
 
@@ -53,11 +53,11 @@ export const PageTransitionProvider = ({ children }) => {
 
       if (!a) return;
 
-      const img = a.querySelector("img[amp-img-id]");
+      const img = a.querySelector("[data-image-link-id]");
 
       if (!img) return;
 
-      const id = img.getAttribute("amp-img-id");
+      const id = img.getAttribute("data-image-link-id");
 
       if (!id) return;
 

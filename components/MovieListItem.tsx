@@ -19,7 +19,7 @@ export const MovieListItem = ({ movie }: Props) => {
           }}
         >
           <AmpImg
-            id={`movie_poster_${movie.id}`}
+            data-image-link-id={movie.id}
             style={{ flex: "auto 0 0" }}
             alt="movie poster"
             specName="default"
