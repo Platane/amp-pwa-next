@@ -23,6 +23,12 @@ export const MainLayout = ({ children }) => (
       <Link href="/user-page">
         <a>user-page</a>
       </Link>
+
+      <span> </span>
+
+      <Link href="/my-favourite">
+        <a>my-favourite</a>
+      </Link>
     </header>
 
     {children}

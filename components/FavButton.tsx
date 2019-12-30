@@ -25,25 +25,20 @@ export const FavButton = ({ movie }) => {
       <span
         dangerouslySetInnerHTML={{
           __html: `
-            <amp-script layout="container" script="fav-button-script"><div>000</div></amp-script>
+            <amp-script layout="container" script="fav-button-script" sandbox="allow-forms">
+
+              <button
+                id="fav-button"
+                data-movie-id="${movie.id}"
+                style="display:inline-block;margin:0;border:none;background:none;padding:2px 12px;font-size:26px"
+              >
+              <span>♥</span>
+              </button>
+
+            </amp-script>
             `
         }}
       />
-
-      <button
-        id="fav-button"
-        data-movie-id={movie.id}
-        style={{
-          display: "inline-block",
-          margin: 0,
-          border: "none",
-          background: "none",
-          padding: "2px 12px",
-          fontSize: "26px"
-        }}
-      >
-        {"♥"}
-      </button>
     </>
   );
 };
@@ -51,27 +46,32 @@ export const FavButton = ({ movie }) => {
 const Script = props => <script {...props} />;
 
 const code = `
+const element = document.getElementById("fav-button");
 
-  const element = document.querySelector("#fav-button");
-  const id = element.getAttribute("data-movie-id");
+const id = element.getAttribute("data-movie-id");
 
-  let favList = [];
-  try {
-    favList = JSON.parse(localStorage.getItem("favList"));
-  } catch (err) {}
+let favList;
+try {
+  favList = JSON.parse(localStorage.getItem("favList"));
+} catch (err) {
+  favList = [];
+}
 
-  element.style.color = favList.includes(id) ? "red" : "black";
+if (!Array.isArray(favList)) favList = [];
 
-  element.addEventListener("click", () => {
-    favList = favList.includes(id)
-      ? favList.filter(i => i !== id)
-      : [...favList, id];
+element.children[0].style.color = favList.includes(id) ? "red" : "black";
 
-    localStorage.setItem("favList", JSON.stringify(favList));
+element.addEventListener("click", () => {
+  favList = favList.includes(id)
+    ? favList.filter(i => i !== id)
+    : [...favList, id];
 
-    element.style.color = favList.includes(id) ? "red" : "black";
-  });
+  localStorage.setItem("favList", JSON.stringify(favList));
+
+  element.children[0].style.color = favList.includes(id) ? "red" : "black";
+});
 
 `;
 
-const codeHash = "xxxx";
+const codeHash =
+  "sha384-pqBJfNtweacaXQX7Ea_bX719uOjS2sYn2QhY9Dfwzbfcm0xZK6_opqm3VD5EBWFv";
