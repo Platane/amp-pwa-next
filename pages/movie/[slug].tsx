@@ -4,6 +4,7 @@ import { getMovie } from "../../services/api/getMovie";
 import { Movie } from "../../services/tmdb/type";
 import { MovieList } from "../../components/MovieList";
 import { getSrcSet, getImageUrl } from "../../services/tmdb/image";
+import { FavButton } from "../../components/FavButton";
 
 export const config = { amp: true };
 
@@ -25,6 +26,8 @@ const Page = ({ movie }: Props) => {
 
       <section style={{ margin: " 20px 0" }}>
         <h1>{movie.title}</h1>
+
+        <FavButton movie={movie} />
 
         <div>
           {Array.from({ length: 10 }).map((_, i) => (
