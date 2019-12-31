@@ -72,5 +72,5 @@ element.addEventListener("click", () => {
 
 `;
 
-const codeHash =
+export const codeHash =
   "sha384-pqBJfNtweacaXQX7Ea_bX719uOjS2sYn2QhY9Dfwzbfcm0xZK6_opqm3VD5EBWFv";

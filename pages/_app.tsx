@@ -5,6 +5,7 @@ import { MainLayout } from "../components/Layout/MainLayout";
 import { CustomRouterProvider } from "../services/customRouter";
 import { ServiceWorkerInstaller } from "../services/service-worker/ServiceWorkerInstaller";
 import { PageTransitionProvider } from "../services/pageTransition";
+import { codeHash } from "../components/FavButton";
 
 export default class Application extends App {
   render() {
@@ -26,6 +27,8 @@ export default class Application extends App {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
+
+          <meta name="amp-script-src" content={codeHash} />
 
           <link rel="preconnect" href="https://cdn.ampproject.org" />
         </Head>
