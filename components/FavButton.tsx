@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-// import { AmpScript } from "react-amphtml";
 
 export const FavButton = ({ movie }) => {
   return (
@@ -43,7 +42,7 @@ export const FavButton = ({ movie }) => {
   );
 };
 
-const Script = props => <script {...props} />;
+const Script = (props: any) => <script {...props} />;
 
 const code = `
 const element = document.getElementById("fav-button");

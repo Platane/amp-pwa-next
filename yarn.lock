@@ -5436,6 +5436,18 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+sha2@>=1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/sha2/-/sha2-1.0.2.tgz#80c9efa6b918f3bfe8bd71a6c78dd4c0dc0ab618"
+  integrity sha512-sQ1sFn+WN2weGkwwt25bllwocaJLyYeDrn/T221Bovc6XEHRf7NSn0KPoPQMV2+NT+RhJoStkdm4TrEGCXkKHA==
+
+sha384@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sha384/-/sha384-1.0.0.tgz#8d1995dc24263b3934579fef7cad95aee77efd45"
+  integrity sha512-uvgLwib5FVwFFY9XFYPvSlZEeYCfL/So43I8R9IqbxAC172LVpg0VmJaTG+rsf8H6n6JM/AtFF2oJ8NybU9vlw==
+  dependencies:
+    sha2 ">=1.0.0"
+
 shell-quote@^1.6.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.1.tgz#3161d969886fb14f9140c65245a5dd19b6f0b06b"
