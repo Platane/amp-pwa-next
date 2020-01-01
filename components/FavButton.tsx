@@ -31,8 +31,10 @@ export const FavButton = ({ movie }) => {
                 data-movie-id="${movie.id}"
                 style="display:inline-block;margin:0;border:none;background:none;padding:2px 12px;font-size:26px"
               >
-              <span>♥</span>
+              <span style="color:transparent">♥</span>
               </button>
+
+              <a style="color:transparent" href="/my-favourite">go to my favourites</a>
 
             </amp-script>
             `
@@ -58,7 +60,8 @@ try {
 
 if (!Array.isArray(favList)) favList = [];
 
-element.children[0].style.color = favList.includes(id) ? "red" : "black";
+element.children[0].style.color = favList.includes(id) ? "red" : "#999";
+element.parentNode.children[1].style.color = 'auto'
 
 element.addEventListener("click", () => {
   favList = favList.includes(id)
@@ -67,10 +70,10 @@ element.addEventListener("click", () => {
 
   localStorage.setItem("favList", JSON.stringify(favList));
 
-  element.children[0].style.color = favList.includes(id) ? "red" : "black";
+  element.children[0].style.color = favList.includes(id) ? "red" : "#999";
 });
 
 `;
 
 export const codeHash =
-  "sha384-pqBJfNtweacaXQX7Ea_bX719uOjS2sYn2QhY9Dfwzbfcm0xZK6_opqm3VD5EBWFv";
+  "sha384-a_9t65eHxONUqvrSnONgpL6rUbdB0l6J3dgYwLvSRX_EfBa2OBXMOzW1972YC7lW";
