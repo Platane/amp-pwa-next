@@ -7,58 +7,25 @@ import { getImageUrl } from "../services/tmdb/image";
 export const config = { amp: false };
 
 const Page = () => {
-  const [ids, setIds] = useState(null as null | string[]);
+  const [ids, setIds] = useFavoriteIds();
+  const movies = useMovieDataFetcher(ids);
 
-  useEffect(() => {
-    let i: string[];
-    try {
-      i = JSON.parse(localStorage.getItem("favList") || "");
-    } catch (err) {
-      i = [];
-    }
-
-    if (!Array.isArray(i)) i = [];
-
-    setIds(i);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("favList", JSON.stringify(ids));
-  }, [ids]);
-
-  const onRemove = id => () => {
+  const onRemove = (id: string) => () => {
     if (!ids) return;
     setIds(ids.filter(i => i !== id));
   };
-
-  const [moviesById, setMoviesById] = useState(
-    {} as Record<string, Movie | "pending">
-  );
-
-  useEffect(() => {
-    if (!ids) return;
-
-    for (const id of ids) {
-      if (!moviesById[id])
-        getMovie(id).then(movie => setMoviesById(x => ({ ...x, [id]: movie })));
-    }
-  }, [ids]);
 
   return (
     <>
       <h1>Your favorite</h1>
 
-      {(ids || ["placeholder1", "placeholder2"]).map(id => {
-        const m = moviesById[id];
-
-        return (
-          <Line
-            movie={m === "pending" ? undefined : m}
-            key={id}
-            onRemove={onRemove(id)}
-          />
-        );
-      })}
+      {movies.map((movie, i) => (
+        <Line
+          movie={movie}
+          key={movie ? movie.id : i}
+          onRemove={movie ? onRemove(movie.id.toString()) : () => ({})}
+        />
+      ))}
     </>
   );
 };
@@ -76,45 +43,76 @@ const Line = ({
       as={movie ? `/movie/${movie.id}` : undefined}
     >
       <a>
-        <>
-          <div
-            style={{
-              width: "140px",
-              height: "210px",
-              display: "inline-block",
-              background: movie
-                ? `url(${getImageUrl(movie.poster_path, { width: 200 })}`
-                : "#eee"
-            }}
-          />
+        <div
+          style={{
+            width: "140px",
+            height: "210px",
+            display: "inline-block",
+            background: movie
+              ? `url(${getImageUrl(movie.poster_path, { width: 200 })}`
+              : "#eee"
+          }}
+        />
 
-          {movie && <span>{movie.title}</span>}
-
-          {movie && (
-            <button
-              data-image-link-id={movie.id}
-              style={{
-                display: "inline-block",
-                margin: 0,
-                border: "none",
-                background: "none",
-                padding: "2px 12px",
-                fontSize: "26px",
-                color: "red"
-              }}
-              onClick={e => {
-                e.stopPropagation();
-                e.preventDefault();
-                onRemove();
-              }}
-            >
-              ♥
-            </button>
-          )}
-        </>
+        {movie && <span>{movie.title}</span>}
       </a>
     </Link>
+
+    {movie && <button onClick={onRemove}>🗑</button>}
   </div>
 );
+
+/**
+ * synchronize the value with localStorage
+ */
+const useFavoriteIds = () => {
+  const [ids, setIds] = useState([] as string[]);
+
+  // on mount, read the ids from the localStorage
+  useEffect(() => {
+    let i: string[];
+    try {
+      i = JSON.parse(localStorage.getItem("favList") || "");
+    } catch (err) {
+      i = [];
+    }
+
+    if (!Array.isArray(i)) i = [];
+
+    setIds(i);
+  }, []);
+
+  // on change, replicate to the localStorage
+  useEffect(() => {
+    localStorage.setItem("favList", JSON.stringify(ids));
+  }, [ids]);
+
+  return [ids, setIds] as const;
+};
+
+/**
+ * given a list of ids, fetch the related data
+ * with a cache
+ */
+const useMovieDataFetcher = (ids: string[]) => {
+  const [moviesById, setMoviesById] = useState(
+    {} as Record<string, Movie | "pending">
+  );
+
+  useEffect(() => {
+    if (!ids) return;
+
+    for (const id of ids) {
+      if (!moviesById[id])
+        getMovie(id).then(movie => setMoviesById(x => ({ ...x, [id]: movie })));
+    }
+  }, [ids]);
+
+  return ids.map(id => {
+    const m = moviesById[id];
+
+    return !m || m === "pending" ? undefined : m;
+  });
+};
 
 export default Page;

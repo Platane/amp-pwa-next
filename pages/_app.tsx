@@ -7,13 +7,15 @@ import { ServiceWorkerInstaller } from "../services/service-worker/ServiceWorker
 import { PageTransitionProvider } from "../services/pageTransition";
 import { codeHash } from "../components/FavButton";
 
+// @ts-ignore
+import { description, homepage } from "../package.json";
+
 export default class Application extends App {
   render() {
     const { Component } = this.props;
 
     const title = "amp pwa next";
-    const url = "https://amp-pwa-next.platane0.now.sh";
-    const description = "Tech demo showcasing amp in pwa with next.js";
+    const url = homepage;
 
     return (
       <>

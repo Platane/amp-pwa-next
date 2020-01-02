@@ -1,8 +1,15 @@
 {
   "name": "amp-pwa-next",
   "version": "1.0.0",
-  "main": "index.js",
   "private": true,
+  "description": "This is a demo with amp in pwa",
+  "repository": "github:platane/amp-pwa-next",
+  "author": {
+    "name": "Platane",
+    "email": "me@platane.me",
+    "url": "https://platane.github.io"
+  },
+  "homepage": "https://amp-pwa-next.platane0.now.sh",
   "engines": {
     "node": "12"
   },
@@ -23,9 +30,9 @@
   },
   "devDependencies": {
     "@types/history": "4.7.3",
-    "@types/node": "^13.1.1",
+    "@types/node": "13.1.2",
     "@types/react": "16.9.17",
-    "@types/react-dom": "^16.9.4",
+    "@types/react-dom": "16.9.4",
     "now": "16.7.0",
     "prettier": "1.19.1",
     "typescript": "3.7.4",

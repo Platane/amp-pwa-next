@@ -1,3 +1,10 @@
+/**
+ * load a whole amp document
+ * leverage amp.attachShadowDoc ( see: https://amp.dev/documentation/guides-and-tutorials/integrate/amp-in-pwa )
+ *
+ * delegate navigation event to loop back into the internal router
+ */
+
 import React, { useEffect, useRef } from "react";
 import Head from "next/head";
 import { fetchDocument } from "../services/fetchDocument";

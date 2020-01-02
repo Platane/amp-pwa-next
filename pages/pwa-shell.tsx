@@ -1,5 +1,4 @@
 import React from "react";
-import { BottomBanner } from "../components/BottomBanner";
 import { AmpDocument } from "../components/AmpDocument";
 import { useRouter } from "../services/customRouter";
 
@@ -15,12 +14,23 @@ export const Page = () => {
     <>
       {pageUrl && <AmpDocument onNavigate={onNavigate} src={pageUrl} />}
 
-      <BottomBanner>
+      <footer
+        style={{
+          position: "fixed",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          padding: "10px",
+          backgroundColor: "#f6f6f5",
+          fontSize: "12px",
+          textAlign: "center"
+        }}
+      >
         <span>
-          you are visiting the page <a href={pageUrl || undefined}>{pageUrl}</a>{" "}
-          inside the pwa shell
+          visiting the page <a href={pageUrl || undefined}>{pageUrl}</a> inside
+          the pwa shell
         </span>
-      </BottomBanner>
+      </footer>
     </>
   );
 };

@@ -1200,17 +1200,17 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.3.tgz#856c99cdc1551d22c22b18b5402719affec9839a"
   integrity sha512-cS5owqtwzLN5kY+l+KgKdRJ/Cee8tlmQoGQuIE9tWnSmS3JMKzmxo2HIAk2wODMifGwO20d62xZQLYz+RLfXmw==
 
-"@types/node@^13.1.1":
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.1.tgz#6d11a8c2d58405b3db9388ab740106cbfa64c3c9"
-  integrity sha512-hx6zWtudh3Arsbl3cXay+JnkvVgCKzCWKv42C9J01N2T2np4h8w5X8u6Tpz5mj38kE3M9FM0Pazx8vKFFMnjLQ==
+"@types/node@13.1.2":
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
+  integrity sha512-B8emQA1qeKerqd1dmIsQYnXi+mmAzTB7flExjmy5X1aVAKFNNNDubkavwR13kR6JnpeLp3aLoJhwn9trWPAyFQ==
 
 "@types/prop-types@*":
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/react-dom@^16.9.4":
+"@types/react-dom@16.9.4":
   version "16.9.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.4.tgz#0b58df09a60961dcb77f62d4f1832427513420df"
   integrity sha512-fya9xteU/n90tda0s+FtN5Ym4tbgxpq/hb/Af24dvs6uYnYn+fspaxw5USlw0R8apDNwxsqumdRoCoKitckQqw==
@@ -5435,18 +5435,6 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
-
-sha2@>=1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/sha2/-/sha2-1.0.2.tgz#80c9efa6b918f3bfe8bd71a6c78dd4c0dc0ab618"
-  integrity sha512-sQ1sFn+WN2weGkwwt25bllwocaJLyYeDrn/T221Bovc6XEHRf7NSn0KPoPQMV2+NT+RhJoStkdm4TrEGCXkKHA==
-
-sha384@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sha384/-/sha384-1.0.0.tgz#8d1995dc24263b3934579fef7cad95aee77efd45"
-  integrity sha512-uvgLwib5FVwFFY9XFYPvSlZEeYCfL/So43I8R9IqbxAC172LVpg0VmJaTG+rsf8H6n6JM/AtFF2oJ8NybU9vlw==
-  dependencies:
-    sha2 ">=1.0.0"
 
 shell-quote@^1.6.1:
   version "1.7.1"
