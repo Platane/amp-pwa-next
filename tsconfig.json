@@ -7,7 +7,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "lib": ["es6", "es2016.array.include", "dom", "esnext", "esnext.array"],
+    "lib": ["dom"],
     "target": "es5",
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,7 +15,8 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "noEmit": true
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
