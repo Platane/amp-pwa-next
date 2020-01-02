@@ -8,6 +8,7 @@ import {
   getInitialProps,
   NextHostGetterProvider
 } from "../services/next-host-getter";
+import { ServiceWorkerInstaller } from "../services/service-worker/ServiceWorkerInstaller";
 
 export default class Application extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -57,6 +58,8 @@ export default class Application extends App {
 
           <link rel="preconnect" href="https://image.tmdb.org" />
         </Head>
+
+        <ServiceWorkerInstaller />
 
         <NextHostGetterProvider host={(this.props as any).host}>
           <MainLayout>

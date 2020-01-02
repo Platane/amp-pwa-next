@@ -38,6 +38,22 @@
       "headers": {
         "Cache-Control": "max-age=7776000, public"
       }
+    },
+
+    {
+      "src": "^/sw.js$",
+      "dest": "/_next/static/sw.js",
+      "headers": {
+        "Cache-Control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    },
+    {
+      "src": "^/static/workbox/(?<path>.*)",
+      "dest": "/_next/static/workbox/$path",
+      "headers": {
+        "Cache-Control": "public, max-age=7776000, immutable"
+      }
     }
   ],
 
