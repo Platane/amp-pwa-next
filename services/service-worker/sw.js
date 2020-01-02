@@ -21,6 +21,8 @@ const appRootUrl = "/?__WB_REVISION__=" + hash;
 
 const appShellUrl = "/pwa-shell?__WB_REVISION__=" + hash;
 
+const ampScriptUrl = "/assets/fav-button-script.js?__WB_REVISION__=" + hash;
+
 const removeTrailingSlash = s =>
   "/" +
   s
@@ -35,6 +37,8 @@ workbox.precaching.precacheAndRoute([
   appRootUrl,
 
   appShellUrl,
+
+  ampScriptUrl,
 
   ...__precacheManifest
 

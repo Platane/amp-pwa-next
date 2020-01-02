@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /pwa-shell
+Disallow: /my-favourite
 Disallow: /api/

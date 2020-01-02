@@ -16,6 +16,12 @@ export const MainLayout = ({ children }) => (
       <Link href="/about">
         <a>about</a>
       </Link>
+
+      <span> </span>
+
+      <Link href="/my-favourite">
+        <a>my-favourite</a>
+      </Link>
     </header>
 
     {children}

@@ -33,7 +33,7 @@
     },
 
     {
-      "src": "^/(movie/(?<id>.*)|about)$",
+      "src": "^/(movie/(?<id>.*)|about|my-favourite)$",
       "continue": true,
       "headers": {
         "Cache-Control": "max-age=7776000, public"
