@@ -1,3 +1,8 @@
+/**
+ * helper to get the origin of the next deployment
+ * read either from the req header, or from the window
+ */
+
 import React, { createContext, useContext } from "react";
 
 const NextHostGetterContext = createContext({
