@@ -1,8 +1,8 @@
 import React from "react";
 import { AmpImg } from "react-amphtml";
-import Link from "next/link";
 import { Movie } from "../services/tmdb/type";
 import { getSrcSet, getImageUrl } from "../services/tmdb/image";
+import { Link } from "./Link";
 
 type Props = { movie: Movie };
 

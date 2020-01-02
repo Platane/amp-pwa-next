@@ -36,7 +36,7 @@
   "orientation": "portrait",
   "display": "standalone",
   "start_url": ".",
-  "description": "A simple movie list app showcasing fully compatible amp pages, embded in pwa to allow nice page transition, deployed with nextjs.",
+  "description": "A simple movie list app featuring amp pages embedded in pwa and nice page transitions, deployed with nextjs",
   "background_color": "#ffffff",
   "theme_color": "#ffffff"
 }

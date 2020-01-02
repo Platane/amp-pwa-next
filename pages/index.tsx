@@ -1,10 +1,10 @@
 import React from "react";
-import Link from "next/link";
 import { AmpImg } from "react-amphtml";
 import { getMovies } from "../services/api/getMovies";
 import { Movie } from "../services/tmdb/type";
 import { getSrcSet, getImageUrl } from "../services/tmdb/image";
 import { extractOrigin } from "../services/next-host-getter";
+import { Link } from "../components/Link";
 
 export const config = { amp: true };
 

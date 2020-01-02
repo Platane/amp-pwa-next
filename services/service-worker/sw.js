@@ -19,6 +19,8 @@ const hash = __precacheManifest.reduce((h, { url }) => {
 
 const appRootUrl = "/?__WB_REVISION__=" + hash;
 
+const appShellUrl = "/pwa-shell?__WB_REVISION__=" + hash;
+
 const removeTrailingSlash = s =>
   "/" +
   s
@@ -31,6 +33,8 @@ const removeTrailingSlash = s =>
  */
 workbox.precaching.precacheAndRoute([
   appRootUrl,
+
+  appShellUrl,
 
   ...__precacheManifest
 
@@ -74,4 +78,30 @@ workbox.routing.registerRoute(
       })
     ]
   })
+);
+
+/**
+ * upon navigation, serve the pwa shell instead
+ */
+workbox.routing.registerRoute(
+  ({ url, event }) =>
+    event.request.mode === "navigate" && isAmpPage(url.pathname),
+
+  async ({ url, event, params }) => {
+    console.log("navigation, push shell instead", url.pathname);
+
+    const cache = await caches.open(workbox.core.cacheNames.precache);
+    const response = await cache.match(
+      workbox.precaching.getCacheKeyForURL(appShellUrl)
+    );
+
+    if (response) return response;
+    else {
+      const res = await fetch(appShellUrl);
+
+      cache.put(appShellUrl, res.clone());
+
+      return res;
+    }
+  }
 );
