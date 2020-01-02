@@ -4,8 +4,19 @@ import Head from "next/head";
 import { MainLayout } from "../components/Layout/MainLayout";
 // @ts-ignore
 import { description, author, homepage as url } from "../package.json";
+import {
+  getInitialProps,
+  NextHostGetterProvider
+} from "../services/next-host-getter";
 
 export default class Application extends App {
+  static async getInitialProps({ Component, ctx }) {
+    const pageProps =
+      Component.getInitialProps && (await Component.getInitialProps(ctx));
+
+    return { pageProps, ...getInitialProps(ctx) };
+  }
+
   render() {
     const { Component } = this.props;
 
@@ -45,9 +56,11 @@ export default class Application extends App {
           <meta name="theme-color" content="#ffffff" />
         </Head>
 
-        <MainLayout>
-          <Component {...this.props.pageProps} />
-        </MainLayout>
+        <NextHostGetterProvider host={(this.props as any).host}>
+          <MainLayout>
+            <Component {...this.props.pageProps} />
+          </MainLayout>
+        </NextHostGetterProvider>
       </>
     );
   }
