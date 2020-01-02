@@ -1,0 +1,26 @@
+{
+  "name": "amp-pwa-next",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple movie list app featuring amp pages embedded in pwa and nice page transitions, deployed with nextjs",
+  "repository": "github:platane/amp-pwa-next",
+  "author": {
+    "name": "Platane",
+    "email": "me@platane.me",
+    "twitter": "platane_",
+    "url": "https://platane.github.io"
+  },
+  "homepage": "https://amp-pwa-next.now.sh",
+  "engines": {
+    "node": "12"
+  },
+  "scripts": {
+    "type": "tsc --noEmit",
+    "lint": "yarn prettier -c '**/*.{ts,tsx,js,jsx,json,md}' '!.next/**'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "1.19.1",
+    "typescript": "3.7.4"
+  }
+}
