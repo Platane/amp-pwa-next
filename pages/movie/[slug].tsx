@@ -5,6 +5,7 @@ import { Movie } from "../../services/tmdb/type";
 import { MovieList } from "../../components/MovieList";
 import { getSrcSet, getImageUrl } from "../../services/tmdb/image";
 import { FavButton } from "../../components/FavButton";
+import { extractOrigin } from "../../services/next-host-getter";
 
 export const config = { amp: true };
 
@@ -79,7 +80,7 @@ const Page = ({ movie }: Props) => {
 Page.getInitialProps = async (ctx): Promise<Props> => {
   const { slug } = ctx.query;
 
-  return { movie: await getMovie(slug) };
+  return { movie: await getMovie(extractOrigin(ctx))(slug) };
 };
 
 export default Page;

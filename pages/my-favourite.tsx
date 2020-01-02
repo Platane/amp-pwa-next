@@ -3,6 +3,7 @@ import { Movie } from "../services/tmdb/type";
 import { getMovie } from "../services/api/getMovie";
 import { Link } from "../components/Link";
 import { getImageUrl } from "../services/tmdb/image";
+import { useOrigin } from "../services/next-host-getter";
 
 export const config = { amp: false };
 
@@ -95,6 +96,8 @@ const useFavoriteIds = () => {
  * with a cache
  */
 const useMovieDataFetcher = (ids: string[]) => {
+  const origin = useOrigin();
+
   const [moviesById, setMoviesById] = useState(
     {} as Record<string, Movie | "pending">
   );
@@ -104,7 +107,9 @@ const useMovieDataFetcher = (ids: string[]) => {
 
     for (const id of ids) {
       if (!moviesById[id])
-        getMovie(id).then(movie => setMoviesById(x => ({ ...x, [id]: movie })));
+        getMovie(origin)(id).then(movie =>
+          setMoviesById(x => ({ ...x, [id]: movie }))
+        );
     }
   }, [ids]);
 

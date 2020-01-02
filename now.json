@@ -5,8 +5,7 @@
 
   "env": {
     "TMDB_API_KEY": "@amp_pwa_next_tmdb_api_key",
-    "OMDB_API_KEY": "@amp_pwa_next_omdb_api_key",
-    "API_ENDPOINT": "https://amp-pwa-next.platane0.now.sh"
+    "OMDB_API_KEY": "@amp_pwa_next_omdb_api_key"
   },
 
   "routes": [

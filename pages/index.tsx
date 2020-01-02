@@ -4,6 +4,7 @@ import { AmpImg } from "react-amphtml";
 import { getMovies } from "../services/api/getMovies";
 import { Movie } from "../services/tmdb/type";
 import { getSrcSet, getImageUrl } from "../services/tmdb/image";
+import { extractOrigin } from "../services/next-host-getter";
 
 export const config = { amp: true };
 
@@ -74,7 +75,7 @@ Page.getInitialProps = async (ctx): Promise<Props> => {
     ].map(async ({ name, id }) => ({
       name,
       id,
-      movies: await getMovies({ genre: id })
+      movies: await getMovies(extractOrigin(ctx))({ genre: id })
     }))
   );
 

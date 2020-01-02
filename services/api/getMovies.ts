@@ -3,13 +3,13 @@ import querystring from "querystring";
 
 (global as any).fetch = (global as any).fetch || require("node-fetch");
 
-export const getMovies = async ({
+export const getMovies = (origin: string) => async ({
   genre
 }: {
   genre?: string;
 }): Promise<Movie[]> => {
   const res = await fetch(
-    (process.env.API_ENDPOINT || "http://localhost:3000") +
+    origin +
       `/api/movie?` +
       querystring.stringify({
         ...(genre && { genre })
