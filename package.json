@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/node": "13.1.2",
     "@types/react": "16.9.17",
+    "@types/react-dom": "16.9.4",
     "now": "16.7.0",
     "prettier": "1.19.1",
     "typescript": "3.7.4"
