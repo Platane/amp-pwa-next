@@ -2,6 +2,29 @@
   "version": 2,
   "name": "amp-pwa-next",
   "regions": ["dub1"],
+
+  "env": {
+    "TMDB_API_KEY": "@amp_pwa_next_tmdb_api_key"
+  },
+
+  "routes": [
+    {
+      "src": "^/api/movie/(?<id>.*)$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "max-age=7776000, public"
+      }
+    },
+
+    {
+      "src": "^/api/movie$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "max-age=86400, public"
+      }
+    }
+  ],
+
   "builds": [
     {
       "src": "next.config.js",
