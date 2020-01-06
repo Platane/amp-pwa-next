@@ -45,6 +45,7 @@ const Line = ({
     >
       <a>
         <img
+          data-image-link-id={movie ? movie.id : undefined}
           alt={`movie poster`}
           style={{
             width: "140px",

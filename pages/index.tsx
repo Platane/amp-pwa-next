@@ -33,6 +33,7 @@ const Page = ({ genres }: Props) => {
                     <a title={movie.title}>
                       <>
                         <AmpImg
+                          data-image-link-id={movie.id}
                           alt={`${movie.title} - movie poster`}
                           specName="default"
                           width="500"

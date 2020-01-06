@@ -10,6 +10,7 @@ import {
 } from "../services/next-host-getter";
 import { ServiceWorkerInstaller } from "../services/service-worker/ServiceWorkerInstaller";
 import { CustomRouterProvider } from "../services/custom-router";
+import { PageTransitionProvider } from "../services/page-transition/PageTransitionProvider";
 
 export default class Application extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -64,9 +65,11 @@ export default class Application extends App {
 
         <NextHostGetterProvider host={(this.props as any).host}>
           <CustomRouterProvider>
-            <MainLayout>
-              <Component {...this.props.pageProps} />
-            </MainLayout>
+            <PageTransitionProvider>
+              <MainLayout>
+                <Component {...this.props.pageProps} />
+              </MainLayout>
+            </PageTransitionProvider>
           </CustomRouterProvider>
         </NextHostGetterProvider>
       </>
