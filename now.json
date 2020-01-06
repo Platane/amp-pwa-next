@@ -22,6 +22,14 @@
       "headers": {
         "Cache-Control": "max-age=86400, public"
       }
+    },
+
+    {
+      "src": "^/?$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "max-age=86400, public"
+      }
     }
   ],
 

@@ -54,6 +54,8 @@ export default class Application extends App {
           ))}
           <link rel="apple-touch-icon" href="/assets/img/icon-192x192.png" />
           <meta name="theme-color" content="#ffffff" />
+
+          <link rel="preconnect" href="https://image.tmdb.org" />
         </Head>
 
         <NextHostGetterProvider host={(this.props as any).host}>
