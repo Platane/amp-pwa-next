@@ -11,6 +11,7 @@
     "url": "https://platane.github.io"
   },
   "homepage": "https://amp-pwa-next.now.sh",
+  "license": "MIT",
   "engines": {
     "node": "12"
   },
