@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { AmpDocument } from "../components/AmpDocument/AmpDocument";
-import { usePageReady } from "../services/page-transition";
 
 export const config = { amp: false };
 

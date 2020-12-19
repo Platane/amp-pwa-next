@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@vv2.1.4
+      - uses: actions/setup-node@v2.1.4
         with:
           node-version: 12
       - uses: bahmutov/npm-install@v1.6.2

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { getImageUrl } from "../services/tmdb/image";
 import * as favList from "../components/FavButton/favList";
-import type { Movie } from "../services/tmdb";
+import type { Movie } from "../services/tmdb/type";
 
 export const config = { amp: false };
 

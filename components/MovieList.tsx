@@ -1,11 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import { renderToString } from "react-dom/server";
-import { AmpList } from "react-amphtml";
-import { AmpImg } from "react-amphtml";
+import { AmpImg, AmpList } from "react-amphtml";
 import { getSrcSet, getImageUrl } from "../services/tmdb/image";
-import Link from "next/link";
-import type { Movie } from "../services/tmdb";
+import type { Movie } from "../services/tmdb/type";
 
 export const MovieList = ({
   src,
