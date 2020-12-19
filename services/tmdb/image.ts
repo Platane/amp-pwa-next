@@ -16,11 +16,11 @@ export const sizes = [200, 300, 400, 500];
  * get all image resolutions
  */
 export const getImageResolutions = (uri: string) => [
-  ...sizes.map(width => ({ width, src: getImageUrl(uri, { width }) })),
+  ...sizes.map((width) => ({ width, src: getImageUrl(uri, { width }) })),
   {
     width: 1000,
-    src: getImageUrl(uri, { original: true })
-  }
+    src: getImageUrl(uri, { original: true }),
+  },
 ];
 
 /**

@@ -1,48 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { Movie } from "../services/tmdb/type";
-import { getMovie } from "../services/api/getMovie";
-import { Link } from "../components/Link";
+import Link from "next/link";
 import { getImageUrl } from "../services/tmdb/image";
-import { useOrigin } from "../services/next-host-getter";
+import * as favList from "../components/FavButton/favList";
+import type { Movie } from "../services/tmdb";
 
 export const config = { amp: false };
 
-const Page = () => {
-  const [ids, setIds] = useFavoriteIds();
-  const movies = useMovieDataFetcher(ids);
+const MyFavouritePage = () => {
+  const [ids, setIds] = useFavouriteIds();
+  const movies = useMoviesById(ids);
 
-  const onRemove = (id: string) => () => {
-    if (!ids) return;
-    setIds(ids.filter(i => i !== id));
-  };
+  const onRemove = (id: string) => () => setIds(ids.filter((i) => i !== id));
 
   return (
     <>
-      <h1>Your favorite</h1>
+      <h1>Your favourites</h1>
 
-      {movies.map((movie, i) => (
-        <Line
-          movie={movie}
-          key={movie ? movie.id : i}
-          onRemove={movie ? onRemove(movie.id.toString()) : () => ({})}
-        />
-      ))}
+      {movies.map((movie, i) => {
+        const id = ids[i];
+        return <Line movie={movie} key={id} id={id} onRemove={onRemove(id)} />;
+      })}
     </>
   );
 };
 
 const Line = ({
+  id,
   movie,
-  onRemove
+  onRemove,
 }: {
+  id: string;
   movie?: Movie | null;
   onRemove: () => void;
 }) => (
   <div>
-    <Link
-      href={movie ? "/movie/[slug]" : undefined}
-      as={movie ? `/movie/${movie.id}` : undefined}
-    >
+    <Link href={`/movie/${id}`}>
       <a>
         <img
           data-image-link-id={movie ? movie.id : undefined}
@@ -52,7 +44,7 @@ const Line = ({
             height: "210px",
             display: "inline-block",
             backgroundColor: "#eee",
-            objectFit: "cover"
+            objectFit: "cover",
           }}
           src={
             movie
@@ -72,27 +64,14 @@ const Line = ({
 /**
  * synchronize the value with localStorage
  */
-const useFavoriteIds = () => {
-  const [ids, setIds] = useState([] as string[]);
+const useFavouriteIds = () => {
+  const [ids, setIds] = useState<string[]>([]);
 
   // on mount, read the ids from the localStorage
-  useEffect(() => {
-    let i: string[];
-    try {
-      i = JSON.parse(localStorage.getItem("favList") || "");
-    } catch (err) {
-      i = [];
-    }
-
-    if (!Array.isArray(i)) i = [];
-
-    setIds(i);
-  }, []);
+  useEffect(() => setIds(favList.get()), []);
 
   // on change, replicate to the localStorage
-  useEffect(() => {
-    localStorage.setItem("favList", JSON.stringify(ids));
-  }, [ids]);
+  useEffect(() => favList.set(ids), [ids]);
 
   return [ids, setIds] as const;
 };
@@ -101,29 +80,33 @@ const useFavoriteIds = () => {
  * given a list of ids, fetch the related data
  * with a cache
  */
-const useMovieDataFetcher = (ids: string[]) => {
-  const origin = useOrigin();
-
-  const [moviesById, setMoviesById] = useState(
-    {} as Record<string, Movie | "pending">
-  );
+const useMoviesById = (ids: string[]) => {
+  const [moviesById, setMoviesById] = useState<
+    Record<string, Movie | "pending" | "error">
+  >({});
 
   useEffect(() => {
     if (!ids) return;
 
-    for (const id of ids) {
-      if (!moviesById[id])
-        getMovie(origin)(id).then(movie =>
-          setMoviesById(x => ({ ...x, [id]: movie }))
-        );
-    }
+    const toFetch = ids.filter((id) => !moviesById[id]);
+
+    setMoviesById((x) => ({
+      ...x,
+      ...Object.fromEntries(toFetch.map((id) => [id, "pending"])),
+    }));
+
+    for (const id of toFetch)
+      fetch(`/api/movie/${id}`)
+        .then((res) => res.json())
+        .catch(() => "error")
+        .then((res) => setMoviesById((x) => ({ ...x, [id]: res })));
   }, [ids]);
 
-  return ids.map(id => {
+  return ids.map((id) => {
     const m = moviesById[id];
 
-    return !m || m === "pending" ? undefined : m;
+    return !m || m === "pending" || m === "error" ? undefined : m;
   });
 };
 
-export default Page;
+export default MyFavouritePage;

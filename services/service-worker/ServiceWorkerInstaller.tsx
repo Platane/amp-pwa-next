@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
 import { useAmp } from "next/amp";
-
 import { AmpInstallServiceworker } from "react-amphtml";
 
 export const ServiceWorkerInstaller = () => {
   const amp = useAmp();
+  const serviceWorkerSrc = "/sw.js";
 
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js");
-      });
-    }
+    navigator.serviceWorker?.register?.(serviceWorkerSrc);
   }, []);
 
   if (!amp) return null;
@@ -29,10 +25,11 @@ export const ServiceWorkerInstaller = () => {
         <script key="amp-core" src="https://cdn.ampproject.org/v0.js" />
       </Head>
 
-      <AmpInstallServiceworker_ src="/sw.js" layout="nodisplay" />
+      <AmpInstallServiceworker
+        src={serviceWorkerSrc}
+        // @ts-ignore
+        layout="nodisplay"
+      />
     </>
   );
 };
-
-// trick to silent ts error on non standard type attribute
-const AmpInstallServiceworker_ = AmpInstallServiceworker as any;

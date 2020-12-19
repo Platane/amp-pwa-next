@@ -2,18 +2,15 @@
  * get a list of movie from tmdb
  */
 
-(global as any).fetch = (global as any).fetch || require("node-fetch");
-
-import querystring from "querystring";
-import { Movie } from "./type";
+import type { Movie } from "./type";
 
 export const getMovies = async ({
   year,
   genre,
-  sort_by = "popularity.desc"
+  sort_by = "popularity.desc",
 }: {
-  year?: number;
-  genre?: number;
+  year?: number | string;
+  genre?: number | string;
   sort_by?: "vote_average.desc" | "popularity.desc";
 }): Promise<{
   results: Movie[];
@@ -23,12 +20,12 @@ export const getMovies = async ({
 }> => {
   const res = await fetch(
     `https://api.themoviedb.org/3/discover/movie?` +
-      querystring.stringify({
+      new URLSearchParams({
         ...(year && { primary_release_year: year }),
         ...(genre && { with_genres: genre }),
         sort_by,
-        api_key: process.env.TMDB_API_KEY
-      })
+        api_key: process.env.TMDB_API_KEY!,
+      } as any).toString()
   );
 
   const resJson = await res.json();
