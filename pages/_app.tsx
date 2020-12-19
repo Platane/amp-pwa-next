@@ -24,7 +24,7 @@ export default class Application extends App {
           </MainLayout>
         </CustomRouterProvider>
 
-        {!false && <ServiceWorkerInstaller />}
+        <ServiceWorkerInstaller />
       </>
     );
   }
