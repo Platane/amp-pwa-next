@@ -18,6 +18,11 @@ export const getMovies = async ({
   total_results: number;
   total_pages: number;
 }> => {
+  console.log(
+    "process.env.TMDB_API_KEY",
+    process.env.TMDB_API_KEY?.slice(0, 6)
+  );
+
   const res = await fetch(
     `https://api.themoviedb.org/3/discover/movie?` +
       new URLSearchParams({
