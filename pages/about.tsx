@@ -3,7 +3,7 @@ import { repository, description } from "../package.json";
 
 export const config = { amp: true };
 
-const Page = () => {
+const AboutPage = () => {
   const githubUrl = repository && repository.replace("github:", "github.com/");
 
   return (
@@ -16,8 +16,13 @@ const Page = () => {
         The source code can be found on github{" "}
         <a href={`https://${githubUrl}`}>{githubUrl}</a>
       </p>
+
+      <p>
+        The data comes from{" "}
+        <a href="https://www.themoviedb.org/">themoviedb.org</a>
+      </p>
     </>
   );
 };
 
-export default Page;
+export default AboutPage;

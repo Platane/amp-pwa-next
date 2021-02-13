@@ -2,17 +2,14 @@
  * get a single movie from tmdb
  */
 
-(global as any).fetch = (global as any).fetch || require("node-fetch");
-
-import querystring from "querystring";
-import { Movie } from "./type";
+import type { Movie } from "./type";
 
 export const getMovie = async (id: string): Promise<Movie> => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?` +
-      querystring.stringify({
-        api_key: process.env.TMDB_API_KEY
-      })
+      new URLSearchParams({
+        api_key: process.env.TMDB_API_KEY!,
+      }).toString()
   );
 
   const resJson = await res.json();

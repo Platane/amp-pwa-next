@@ -14,3 +14,5 @@ export const getAbsoluteBoundingBox = (element: Element) => {
 
   return box;
 };
+
+export type Box = { x: number; y: number; width: number; height: number };

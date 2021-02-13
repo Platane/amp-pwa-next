@@ -1,107 +1,86 @@
-/**
- * expose provider and hook to replace react/next with a custom router implementation
- * this is useful to workaround next page loading
- *
- * this way one page can take control of the routing
- */
-
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useMemo
-} from "react";
-import { useRouter as useNextRouter } from "next/router";
-import { parse } from "url";
-import { createBrowserHistory, createMemoryHistory } from "history";
+import React, { useState, useEffect } from "react";
+import { NextRouter, useRouter as useNextRouter } from "next/router";
+import { RouterContext } from "next/dist/next-server/lib/router-context";
 import { isAmpPage } from "./isAmpPage";
+import { history } from "./history";
+
+const shellRoute = "/app-shell";
 
 /**
- * expose the same api as nextjs useRouter
+ * change the router in the context
+ * when navigating to amp pages, change the nextRouter route to the app shell
+ *
  */
-export const useRouter = () => useContext(CustomRouterContext);
+export const Provider = ({ children }: { children: any }) => {
+  const [shellRouter, setShellRouter] = useState({
+    href: history.getHref(),
+    pop: false,
+  });
 
-const CustomRouterContext = createContext({
-  pathname: "" as string | null,
-  query: null as any,
-  push: (href: string, as: string, o?: { shallow: boolean }) => {},
-  replace: (href: string, as: string, o?: { shallow: boolean }) => {}
-});
-
-export const CustomRouterProvider = ({ initialUrl = "/", children }) => {
   const nextRouter = useNextRouter();
-  const [url, setUrl] = useState(initialUrl);
 
-  // instanciate the history
-  const history = useMemo(
-    () =>
-      typeof window === "undefined"
-        ? createMemoryHistory()
-        : createBrowserHistory(),
-    []
-  );
-
-  // at mount, initialize the url to the current
-  // and listen to history change (with back / forth button)
+  // handle state pop
   useEffect(() => {
-    const handler = () => {
-      setUrl(
-        history.location.pathname +
-          history.location.search +
-          history.location.hash
-      );
+    const onChange = async () => {
+      const href = history.getHref();
+
+      if (!isAmpPage(href)) nextRouter.replace(href);
+      else {
+        if (nextRouter.pathname !== shellRoute) {
+          await nextRouter.replace(shellRoute, undefined, { shallow: true });
+          history.replace(href);
+        }
+        setShellRouter({ href, pop: true });
+      }
     };
 
-    handler();
+    window.addEventListener("popstate", onChange);
 
-    return history.listen(handler);
-  }, []);
+    return () => window.removeEventListener("popstate", onChange);
+  }, [nextRouter.pathname]);
 
-  // navigate function
-  // either set the history, or delegate to nextjs router
-  // depending on whever the current and next page are amp (and therefor should be mounted in the pwa shell) or not
-  const navigate = (replace = false) => async (
-    href: string,
-    as: string,
-    options
-  ) => {
-    const nextIsAmp = isAmpPage(parse(as).pathname);
-    const currentIsShell = nextRouter.pathname === "/pwa-shell";
+  // modify router object
+  const value: NextRouter = { ...nextRouter };
 
-    if (nextIsAmp && currentIsShell) {
-      history[replace ? "replace" : "push"](as);
-      setUrl(as);
-      return nextTic();
-    }
+  // overwrite push and replace method
+  for (const m of ["push", "replace"] as const) {
+    value[m] = async (url, as, options) => {
+      // parse url
+      const { pathname, search, hash } =
+        typeof url === "string" ? new URL(url, window.location.origin) : url;
+      const href = pathname! + search! + hash!;
 
-    if (nextIsAmp && !currentIsShell) {
-      await nextRouter.push("/pwa-shell");
-      history.replace(as);
-      setUrl(as);
-      return nextTic();
-    }
+      if (!isAmpPage(pathname!)) {
+        return await nextRouter[m](href, as, options);
+      } else {
+        if (nextRouter.route !== shellRoute) {
+          // redirect the nextRouter to the shell
+          // ensure that the history url stays the same so it gets put in the stack on push
+          const currentHref = nextRouter.asPath;
+          await nextRouter.replace(shellRoute, undefined, { shallow: true });
+          history.replace(currentHref);
+        }
 
-    if (!nextIsAmp) {
-      setUrl(as);
-      return nextRouter[replace ? "replace" : "push"](href, as, options);
-    }
-  };
+        nextRouter.events.emit("shell-routeChangeStart", href);
+        history[m](href);
+        setShellRouter({ href, pop: false });
 
-  const { pathname, query } = parse(url);
+        return true;
+      }
+    };
+  }
+
+  // overwrite pathname / asPath / query if the route is the app shell
+  if (value.route === shellRoute) {
+    const { pathname, searchParams } = new URL(shellRouter.href, "http://a");
+
+    value.pathname = pathname;
+    value.asPath = shellRouter.href;
+    value.query = Object.fromEntries((searchParams as any).entries());
+    (value as any).pop = shellRouter.pop;
+  }
 
   return (
-    <CustomRouterContext.Provider
-      value={{
-        pathname,
-        query,
-        push: navigate(false),
-        replace: navigate(true)
-      }}
-    >
-      {children}
-    </CustomRouterContext.Provider>
+    <RouterContext.Provider value={value}>{children}</RouterContext.Provider>
   );
 };
-
-const nextTic = () => new Promise(resolve => setTimeout(resolve, 0));
