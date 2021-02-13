@@ -5,31 +5,34 @@ import { AmpInstallServiceworker } from "react-amphtml";
 
 export const ServiceWorkerInstaller = () => {
   const amp = useAmp();
-  const serviceWorkerSrc = "/sw.js";
 
-  useEffect(() => {
-    navigator.serviceWorker?.register?.(serviceWorkerSrc);
-  }, []);
+  return null;
 
-  if (!amp) return null;
+  // const serviceWorkerSrc = "/sw.js";
 
-  return (
-    <>
-      <Head key="amp-container">
-        <script
-          key="amp-container"
-          async
-          custom-element="amp-install-serviceworker"
-          src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"
-        />
-        <script key="amp-core" src="https://cdn.ampproject.org/v0.js" />
-      </Head>
+  // useEffect(() => {
+  //   navigator.serviceWorker?.register?.(serviceWorkerSrc);
+  // }, []);
 
-      <AmpInstallServiceworker
-        src={serviceWorkerSrc}
-        // @ts-ignore
-        layout="nodisplay"
-      />
-    </>
-  );
+  // if (!amp) return null;
+
+  // return (
+  //   <>
+  //     <Head key="amp-container">
+  //       <script
+  //         key="amp-container"
+  //         async
+  //         custom-element="amp-install-serviceworker"
+  //         src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"
+  //       />
+  //       {/* <script key="amp-core" src="https://cdn.ampproject.org/v0.js" /> */}
+  //     </Head>
+
+  //     <AmpInstallServiceworker
+  //       src={serviceWorkerSrc}
+  //       // @ts-ignore
+  //       layout="nodisplay"
+  //     />
+  //   </>
+  // );
 };

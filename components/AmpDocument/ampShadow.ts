@@ -1,9 +1,13 @@
 const load = () => {
   if (typeof window === "undefined") return Promise.reject();
 
-  const script = document.createElement("script");
-  script.src = "https://cdn.ampproject.org/shadow-v0.js";
-  document.body.appendChild(script);
+  const src = "https://cdn.ampproject.org/shadow-v0.js";
+
+  if (!document.querySelector(`script[src="${src}"]`)) {
+    const script = document.createElement("script");
+    script.src = src;
+    document.body.appendChild(script);
+  }
 
   return new Promise<AMP>((resolve) => {
     const win = window as any;

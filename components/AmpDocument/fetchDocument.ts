@@ -18,7 +18,6 @@ export const fetchDocument = (url: string) => {
         }
         if (xhr.status === 0) {
           xhr.onreadystatechange = null;
-          reject(new Error(`Request aborted`));
           return;
         }
         if (xhr.status < 100 || xhr.status > 599) {
@@ -27,11 +26,10 @@ export const fetchDocument = (url: string) => {
           return;
         }
         if (xhr.readyState === /* COMPLETE */ 4) {
-          if (xhr.responseXML) {
-            resolve(xhr.responseXML);
-          } else {
-            reject(new Error("No xhr.responseXML"));
-          }
+          if (xhr.status === 404) reject(new Error("Not Found"));
+          else if (xhr.status >= 400) reject(new Error("Network Error"));
+          else if (!xhr.responseXML) reject(new Error("No xhr.responseXML"));
+          else resolve(xhr.responseXML);
         }
       };
       xhr.onerror = () => {
